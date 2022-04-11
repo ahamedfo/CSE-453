@@ -1,33 +1,22 @@
 from tkinter import CENTER
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 
-class App(QMainWindow):
-
+class UI(QMainWindow):
     def __init__(self):
-        super().__init__()
-        #self.setStyleSheet("background-color: blue;")
-        self.title = 'PyQt5 textbox - pythonspot.com'
-        self.left = 10
-        self.top = 10
-        self.width = 800
-        self.height = 600
-        self.initUI()
-        
-    def initUI(self):
-        _translate = QtCore.QCoreApplication.translate
+        super(UI, self).__init__()
+
+        uic.loadUi("dialog.ui", self)
+
         self.label = QLabel('This is label', self)
         self.label.setGeometry(QtCore.QRect(190, 250, 281, 31))
         self.label.setObjectName("label")
-        self.label.setText(_translate("MainWindow", "Output"))
+        #self.label.setText(_translate("MainWindow", "Output"))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
-        
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
-    
+
         # Create textbox
         self.textbox1 = QLineEdit(self)
         self.textbox1.move(20, 20)
@@ -69,10 +58,7 @@ class App(QMainWindow):
         self.button2.move(20,80)
         self.button2.setGeometry(QtCore.QRect(350, 210, 113, 32))
 
-        # Create a button in the window
-        self.button3 = QPushButton('Choose File', self)
-        self.button3.move(10,40)
-        self.button3.setGeometry(QtCore.QRect(400, 410, 113, 32))
+        
         
         # Create a button in the window
         self.button3 = QPushButton('Incorrect Info', self)
@@ -84,15 +70,18 @@ class App(QMainWindow):
         self.button4.move(20,80)
         self.button4.setGeometry(QtCore.QRect(350, 300, 113, 32))
 
+
+        self.button = self.findChild(QPushButton, "pushButton")
         # connect button to function on_click
         self.button2.clicked.connect(self.on_enter)
         self.button1.clicked.connect(self.on_cancel)
-        self.button3.clicked.connect(self.on_choosefile)
+        self.button.clicked.connect(self.clicker)
         self.show()
+        #self.label = self.findChild(QLabel, "label")
 
         
-    
-    @pyqtSlot()
+        self.show()
+
     def on_cancel(self):
         self.textbox1.setText("")
         self.textbox2.setText("")
@@ -117,13 +106,10 @@ class App(QMainWindow):
         self.label.setText(output)
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
-
-    def on_choosefile(self):
-        path = str(QFileDialog.getExistingDirectory(None, "Select Directory"))
-        if path != ('', ''):
-            print(path[0])
-            
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
+    def clicker(self):
+        file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
+        print(file)
+#initialize
+app = QApplication(sys.argv)
+UIWindow = UI()
+app.exec_()
