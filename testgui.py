@@ -75,7 +75,7 @@ class UI(QMainWindow):
         # connect button to function on_click
         self.button2.clicked.connect(self.on_enter)
         self.button1.clicked.connect(self.on_cancel)
-        self.button.clicked.connect(self.clicker)
+        self.button.clicked.connect(self.on_openfile)
         self.show()
         #self.label = self.findChild(QLabel, "label")
 
@@ -106,9 +106,11 @@ class UI(QMainWindow):
         self.label.setText(output)
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
-    def clicker(self):
+    def on_openfile(self):
         file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
+        outputfile = file[0].split("/")
         print(file)
+        print(outputfile[len(outputfile) - 1])
 #initialize
 app = QApplication(sys.argv)
 UIWindow = UI()
