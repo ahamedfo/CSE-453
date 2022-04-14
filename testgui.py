@@ -4,7 +4,11 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
-import processing
+from PDFReader import PDFReader
+
+
+#file = "Amazon.pdf"
+file_to_write = "order.csv"
 
 class UI(QMainWindow):
     def __init__(self):
@@ -112,7 +116,9 @@ class UI(QMainWindow):
         outputfile = file[0].split("/")
         print(file)
         print(outputfile[len(outputfile) - 1])
-        processing.open_pdf(fd = outputfile[len(outputfile) - 1])
+        reader = PDFReader(outputfile[len(outputfile) - 1],file_to_write)
+        reader.open_pdf()
+        #processing.open_pdf(fd = outputfile[len(outputfile) - 1])
 #initialize
 app = QApplication(sys.argv)
 UIWindow = UI()
