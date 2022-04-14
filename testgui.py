@@ -4,6 +4,7 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QLabel, QFileDialog
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
+import processing
 
 class UI(QMainWindow):
     def __init__(self):
@@ -111,6 +112,7 @@ class UI(QMainWindow):
         outputfile = file[0].split("/")
         print(file)
         print(outputfile[len(outputfile) - 1])
+        processing.open_pdf(fd = outputfile[len(outputfile) - 1])
 #initialize
 app = QApplication(sys.argv)
 UIWindow = UI()
