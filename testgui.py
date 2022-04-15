@@ -123,7 +123,7 @@ class UI(QMainWindow):
         output += textboxValue4
         output += " "
         output += textboxValue5
-        self.label.setText(search.search(dictt))
+        self.label.setText(search.search(dictt, file_to_write))
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
     def on_openfile(self):
