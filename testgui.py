@@ -44,8 +44,11 @@ class UI(QMainWindow):
         self.label6 = QLabel('Line 5', self)
         self.label6.setGeometry(QtCore.QRect(475, 115, 281, 31))
 
-        self.label6 = QLabel('Pet Name', self)
-        self.label6.setGeometry(QtCore.QRect(475, 165, 281, 31))
+        self.label7 = QLabel('Pet Name', self)
+        self.label7.setGeometry(QtCore.QRect(475, 165, 281, 31))
+       
+        self.label8 = QLabel('# of tags: ', self)
+        self.label8.setGeometry(QtCore.QRect(75, 265, 281, 31))
 
         # Create textbox
         self.textbox1 = QLineEdit(self)
@@ -163,6 +166,8 @@ class UI(QMainWindow):
         self.outputt = search.search(self.dictt, file_to_write)
         #search.right_entry = outputt
         self.label.setText(str(self.outputt))
+
+        self.label8.setText(str(len(self.outputt)))
         #self.label.setText(output)
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
