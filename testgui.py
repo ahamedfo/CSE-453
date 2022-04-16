@@ -159,9 +159,12 @@ class UI(QMainWindow):
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
 
-    def on_correct_info():
-        search.right_entry = outputt
+    def on_correct_info(self):
+        search.right_entries.append(outputt)
 
+
+    def on_download_called(self):
+        search.download('pathOf F')
 
     def on_openfile(self):
         file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
