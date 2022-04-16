@@ -11,7 +11,7 @@ import search
 
 #file = "Amazon.pdf"
 file_to_write = "order.csv"
-
+outputt = []
 class UI(QMainWindow):
     def __init__(self):
         super(UI, self).__init__()
@@ -107,6 +107,7 @@ class UI(QMainWindow):
         self.button2.clicked.connect(self.on_enter)
         self.button1.clicked.connect(self.on_cancel)
         self.button.clicked.connect(self.on_openfile)
+        self.button4.clicked.connect(self.on_correct_info)
         self.show()
         #self.label = self.findChild(QLabel, "label")
 
@@ -152,11 +153,16 @@ class UI(QMainWindow):
         output += textboxValue5
 
         outputt = search.search(dictt, file_to_write)
-        search.right_entry = outputt
+        #search.right_entry = outputt
         self.label.setText(str(outputt))
         #self.label.setText(output)
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
+
+    def on_correct_info():
+        search.right_entry = outputt
+
+
     def on_openfile(self):
         file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
         outputfile = file[0].split("/")
