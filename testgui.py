@@ -19,6 +19,7 @@ class UI(QMainWindow):
     def __init__(self):
         self.dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
         self.outputt = []
+        self.file = []
         super(UI, self).__init__()
 
         uic.loadUi("dialog.ui", self)
@@ -97,7 +98,10 @@ class UI(QMainWindow):
         self.button2.move(20,80)
         self.button2.setGeometry(QtCore.QRect(350, 210, 113, 32))
 
-        
+        # Create a button in the window
+        self.button5 = QPushButton('Get Final CSV', self)
+        self.button5.move(20,80)
+        self.button5.setGeometry(QtCore.QRect(450, 210, 113, 32))
         
         # Create a button in the window
         self.button3 = QPushButton('Incorrect Info', self)
@@ -111,16 +115,21 @@ class UI(QMainWindow):
 
 
         self.button = self.findChild(QPushButton, "pushButton")
+
         # connect button to function on_click
         self.button2.clicked.connect(self.on_enter)
         self.button1.clicked.connect(self.on_cancel)
         self.button.clicked.connect(self.on_openfile)
         self.button4.clicked.connect(self.on_correct_info)
+        self.button5.clicked.connect(self.on_download)
         self.show()
         #self.label = self.findChild(QLabel, "label")
 
         
         self.show()
+
+    def on_download(self):
+        search.download(self.file[0])
 
     def on_cancel(self):
         self.textbox1.setText("")
@@ -180,12 +189,12 @@ class UI(QMainWindow):
     #    search.download('pathOf F')
 
     def on_openfile(self):
-        file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
-        outputfile = file[0].split("/")
-        print(file)
+        self.file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
+        outputfile = self.file[0].split("/")
+        print(self.file)
         print(outputfile[len(outputfile) - 1])
         #reader = PDFReader(outputfile[len(outputfile) - 1],file_to_write)
-        reader = PDFReader(file[0], file_to_write)
+        reader = PDFReader(self.file[0], file_to_write)
         reader.open_pdf()
         #processing.open_pdf(fd = outputfile[len(outputfile) - 1])
 #initialize
