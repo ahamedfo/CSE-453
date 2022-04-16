@@ -11,9 +11,14 @@ import search
 
 #file = "Amazon.pdf"
 file_to_write = "order.csv"
-outputt = []
+
+
 class UI(QMainWindow):
+    
+
     def __init__(self):
+        self.dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
+        self.outputt = []
         super(UI, self).__init__()
 
         uic.loadUi("dialog.ui", self)
@@ -120,8 +125,11 @@ class UI(QMainWindow):
         self.textbox3.setText("")
         self.textbox4.setText("")
         self.textbox5.setText("")
+        self.textbox6.setText("")
+        self.label.setText("")
+        self.dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
     def on_enter(self):
-        dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
+        #dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
         textboxValue1 = self.textbox1.text()
         textboxValue2 = self.textbox2.text()
         textboxValue3 = self.textbox3.text()
@@ -130,18 +138,18 @@ class UI(QMainWindow):
         textboxValue6 = self.textbox6.text()
 
         if textboxValue1 != "":
-            dictt["Line1"] = textboxValue1
+            self.dictt["Line1"] = textboxValue1
         if textboxValue2 != "":
-            dictt["Line2"] = textboxValue2
+            self.dictt["Line2"] = textboxValue2
         if textboxValue3 != "":
-            dictt["Line3"] = textboxValue3
+            self.dictt["Line3"] = textboxValue3
         if textboxValue4 != "":
-            dictt["Line4"] = textboxValue4
+            self.dictt["Line4"] = textboxValue4
         if textboxValue5 != "":
-            dictt["Line5"] = textboxValue5
+            self.dictt["Line5"] = textboxValue5
         if textboxValue6 != "":
-            dictt["PetName"] = textboxValue6
-        
+            self.dictt["PetName"] = textboxValue6
+        print(self.dictt)
         output = textboxValue1 
         output += " "
         output += textboxValue2
@@ -152,19 +160,19 @@ class UI(QMainWindow):
         output += " "
         output += textboxValue5
 
-        outputt = search.search(dictt, file_to_write)
+        self.outputt = search.search(self.dictt, file_to_write)
         #search.right_entry = outputt
-        self.label.setText(str(outputt))
+        self.label.setText(str(self.outputt))
         #self.label.setText(output)
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
 
     def on_correct_info(self):
-        search.right_entries.append(outputt)
+        search.right_entries.append(self.outputt)
+        print("right entries ", search.right_entries)
 
-
-    def on_download_called(self):
-        search.download('pathOf F')
+    #def on_download_called(self):
+    #    search.download('pathOf F')
 
     def on_openfile(self):
         file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")

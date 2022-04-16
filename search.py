@@ -31,13 +31,13 @@ def search(dictionary, csvs):
     print(retRows)
     return retRows
 
-def download(path):
-    headers = ['OrderNumber', 'FullName', "Address", "Pet Names", "SKU", "Color", "Line1",
-           "line2", "line3", "line4", "line5"]
-    file = open(path, 'w', newline ='')
-    with file:
-        writer = csv.DictWriter(file, fieldnames = header)
+# def download(path):
+#     headers = ['OrderNumber', 'FullName', "Address", "Pet Names", "SKU", "Color", "Line1",
+#            "line2", "line3", "line4", "line5"]
+#     file = open(path, 'w', newline ='')
+#     with file:
+#         writer = csv.DictWriter(file, fieldnames = header)
 
-        for entry in right_entries:
-            for header in headers:
+#         for entry in right_entries:
+#             for header in headers:
 
