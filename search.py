@@ -3,7 +3,7 @@ import csv
 
 from matplotlib.pyplot import text
 
-right_entry = ""
+right_entries = []
 
 def search_helper(dictionary):
     row_num = [3,6,7,8,9,10]
@@ -30,3 +30,14 @@ def search(dictionary, csvs):
             retRows.append(row)
     print(retRows)
     return retRows
+
+def download(path):
+    headers = ['OrderNumber', 'FullName', "Address", "Pet Names", "SKU", "Color", "Line1",
+           "line2", "line3", "line4", "line5"]
+    file = open(path, 'w', newline ='')
+    with file:
+        writer = csv.DictWriter(file, fieldnames = header)
+
+        for entry in right_entries:
+            for header in headers:
+
