@@ -1,6 +1,9 @@
 import csv 
 
+
 from matplotlib.pyplot import text
+
+right_entry = ""
 
 def search_helper(dictionary):
     row_num = [3,6,7,8,9,10]

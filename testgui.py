@@ -150,7 +150,10 @@ class UI(QMainWindow):
         output += textboxValue4
         output += " "
         output += textboxValue5
-        self.label.setText(str(search.search(dictt, file_to_write)))
+
+        outputt = search.search(dictt, file_to_write)
+        search.right_entry = outputt
+        self.label.setText(str(outputt))
         #self.label.setText(output)
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
