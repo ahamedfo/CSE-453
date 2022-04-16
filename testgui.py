@@ -8,6 +8,7 @@ from PDFReader import PDFReader
 import search
 
 
+
 #file = "Amazon.pdf"
 file_to_write = "order.csv"
 
@@ -22,6 +23,24 @@ class UI(QMainWindow):
         self.label.setObjectName("label")
         #self.label.setText(_translate("MainWindow", "Output"))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.label2 = QLabel('Line 1', self)
+        self.label2.setGeometry(QtCore.QRect(140, 60, 281, 31))
+
+        self.label3 = QLabel('Line 2', self)
+        self.label3.setGeometry(QtCore.QRect(140, 115, 281, 31))
+
+        self.label4 = QLabel('Line 3', self)
+        self.label4.setGeometry(QtCore.QRect(140, 165, 281, 31))
+
+        self.label5 = QLabel('Line 4', self)
+        self.label5.setGeometry(QtCore.QRect(475, 60, 281, 31))
+
+        self.label6 = QLabel('Line 5', self)
+        self.label6.setGeometry(QtCore.QRect(475, 115, 281, 31))
+
+        self.label6 = QLabel('Pet Name', self)
+        self.label6.setGeometry(QtCore.QRect(475, 165, 281, 31))
 
         # Create textbox
         self.textbox1 = QLineEdit(self)
@@ -53,6 +72,12 @@ class UI(QMainWindow):
         self.textbox5.move(20, 20)
         self.textbox5.resize(280,40)
         self.textbox5.setGeometry(QtCore.QRect(340, 110, 131, 41))
+
+        # Create textbox
+        self.textbox6 = QLineEdit(self)
+        self.textbox6.move(20, 20)
+        self.textbox6.resize(280,40)
+        self.textbox6.setGeometry(QtCore.QRect(340, 160, 131, 41))
 
         # Create a button in the window
         self.button1 = QPushButton('Cancel', self)
@@ -101,6 +126,7 @@ class UI(QMainWindow):
         textboxValue3 = self.textbox3.text()
         textboxValue4 = self.textbox4.text()
         textboxValue5 = self.textbox5.text()
+        textboxValue6 = self.textbox6.text()
 
         if textboxValue1 != "":
             dictt["Line1"] = textboxValue1
@@ -112,7 +138,8 @@ class UI(QMainWindow):
             dictt["Line4"] = textboxValue4
         if textboxValue5 != "":
             dictt["Line5"] = textboxValue5
-
+        if textboxValue6 != "":
+            dictt["PetName"] = textboxValue6
         
         output = textboxValue1 
         output += " "
@@ -123,7 +150,8 @@ class UI(QMainWindow):
         output += textboxValue4
         output += " "
         output += textboxValue5
-        self.label.setText(search.search(dictt, file_to_write))
+        self.label.setText(str(search.search(dictt, file_to_write)))
+        #self.label.setText(output)
         #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
         #self.textbox.setText("")
     def on_openfile(self):
@@ -131,7 +159,8 @@ class UI(QMainWindow):
         outputfile = file[0].split("/")
         print(file)
         print(outputfile[len(outputfile) - 1])
-        reader = PDFReader(outputfile[len(outputfile) - 1],file_to_write)
+        #reader = PDFReader(outputfile[len(outputfile) - 1],file_to_write)
+        reader = PDFReader(file[0], file_to_write)
         reader.open_pdf()
         #processing.open_pdf(fd = outputfile[len(outputfile) - 1])
 #initialize

@@ -1,4 +1,6 @@
-import csv
+import csv 
+
+from matplotlib.pyplot import text
 
 def search_helper(dictionary):
     row_num = [3,6,7,8,9,10]
@@ -8,9 +10,11 @@ def search_helper(dictionary):
             check_dict[row_num[i]] = dictionary[key]
     return check_dict
 
-def search(dictionary):
+def search(dictionary, csvs):
+    print("csv ",csvs)
     text_boxes = search_helper(dictionary)
-    csv_file = csv.reader(open('order.csv', "r"), delimiter=",")
+    print("text boxes ", text_boxes)
+    csv_file = csv.reader(open(csvs, "r"), delimiter=",")
     next(csv_file)
     retRows = []
     for row in csv_file:
@@ -21,4 +25,5 @@ def search(dictionary):
                 Good_row = False
         if Good_row:
             retRows.append(row)
-    return retRows, text_boxes
+    print(retRows)
+    return retRows
