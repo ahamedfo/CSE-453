@@ -185,8 +185,8 @@ class UI(QMainWindow):
         search.right_entries.append(self.outputt)
         print("right entries ", search.right_entries)
 
-    #def on_download_called(self):
-    #    search.download('pathOf F')
+    def on_download_called(self):
+       search.download('aoko')
 
     def on_openfile(self):
         self.file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
