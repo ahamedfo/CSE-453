@@ -34,9 +34,8 @@ def search(dictionary, csvs):
 def download(path):
     headers = ['OrderNumber', 'FullName', "Address", "Pet Names", "SKU", "Color", "Line1",
            "line2", "line3", "line4", "line5"]
-    file = open(path, 'w', newline ='')
+    file = open(path + '.csv', 'w', newline ='')
     with file:
-        writer = csv.DictWriter(file, fieldnames = header)
-
-        for entry in right_entries:
-            for header in headers:
+        writer = csv.writer(file)
+        writer.writerow(headers)
+        writer.writerows(right_entries)
