@@ -1,18 +1,54 @@
 from tkinter import CENTER
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QLabel, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QAction, QLineEdit, QMessageBox, QLabel, QFileDialog, QTextEdit
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import pyqtSlot
 from PDFReader import PDFReader
 import search
+from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+import sys
 
 
 
 #file = "Amazon.pdf"
 file_to_write = "order.csv"
 
+class ScrollLabel(QScrollArea):
+ 
+    # constructor
+    def __init__(self, *args, **kwargs):
+        QScrollArea.__init__(self, *args, **kwargs)
+ 
+        # making widget resizable
+        self.setWidgetResizable(True)
+ 
+        # making qwidget object
+        content = QWidget(self)
+        self.setWidget(content)
+ 
+        # vertical box layout
+        lay = QVBoxLayout(content)
+ 
+        # creating label
+        self.label = QLabel(content)
+ 
+        # setting alignment to the text
+        self.label.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+ 
+        # making label multi-line
+        self.label.setWordWrap(True)
+ 
+        # adding label to the layout
+        lay.addWidget(self.label)
 
+    # the setText method
+    def setText(self, text):
+        # setting text to the label
+        self.label.setText(text)
 class UI(QMainWindow):
     
 
@@ -20,15 +56,32 @@ class UI(QMainWindow):
         self.dictt = { 'PetName':'0', 'Line1': '0', "Line2": '0', "Line3": '0', "Line4": '0', "Line5": '0'}
         self.outputt = []
         self.file = []
+        self.name = ""
+        self.textEdit = QTextEdit()
         super(UI, self).__init__()
 
         uic.loadUi("dialog.ui", self)
 
-        self.label = QLabel('This is label', self)
+        self.label = QLabel('nas;lkdjf;lkajsdf;lkja;lskdjf;lkajds;flkja;lskdjf;lakjsdf;lkjasd;lfkja;lksjdf;lkja;dslfkja;lskdjf;lkajsdf;lkjasd;flkja;lskdfj;lkajsdf;lkajsdf', self)
         self.label.setGeometry(QtCore.QRect(190, 250, 281, 31))
         self.label.setObjectName("label")
         #self.label.setText(_translate("MainWindow", "Output"))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setWordWrap(True)
+        #self.label.adjustSize()
+
+
+        text = "**Potentional dog tags will show here**"
+ 
+        # creating scroll label
+        self.label10 = ScrollLabel(self)
+ 
+        # setting text to the label
+        self.label10.setText(text)
+ 
+        # setting geometry
+        self.label10.setGeometry(190, 250, 281, 231)
+
 
         self.label2 = QLabel('Line 1', self)
         self.label2.setGeometry(QtCore.QRect(140, 60, 281, 31))
@@ -101,17 +154,17 @@ class UI(QMainWindow):
         # Create a button in the window
         self.button5 = QPushButton('Get Final CSV', self)
         self.button5.move(20,80)
-        self.button5.setGeometry(QtCore.QRect(450, 210, 113, 32))
+        self.button5.setGeometry(QtCore.QRect(275, 510, 113, 32))
         
         # Create a button in the window
         self.button3 = QPushButton('Incorrect Info', self)
         self.button3.move(20,80)
-        self.button3.setGeometry(QtCore.QRect(200, 300, 113, 32))
+        self.button3.setGeometry(QtCore.QRect(200, 480, 113, 32))
 
         # Create a button in the window
         self.button4 = QPushButton('Correct Info', self)
         self.button4.move(20,80)
-        self.button4.setGeometry(QtCore.QRect(350, 300, 113, 32))
+        self.button4.setGeometry(QtCore.QRect(350, 480, 113, 32))
 
 
         self.button = self.findChild(QPushButton, "pushButton")
@@ -123,13 +176,18 @@ class UI(QMainWindow):
         self.button4.clicked.connect(self.on_correct_info)
         self.button5.clicked.connect(self.on_download)
         self.show()
-        #self.label = self.findChild(QLabel, "label")
 
         
         self.show()
 
     def on_download(self):
-        search.download('condensed ' + file_to_write)
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+        fileName, _ = QFileDialog.getSaveFileName(self,"QFileDialog.getSaveFileName()","","All Files (*);;Text Files (*.txt)", options=options)
+        if fileName:
+            print(fileName)
+
+        search.download(fileName)
 
     def on_cancel(self):
         self.textbox1.setText("")
@@ -162,41 +220,25 @@ class UI(QMainWindow):
         if textboxValue6 != "":
             self.dictt["PetName"] = textboxValue6
         print(self.dictt)
-        output = textboxValue1 
-        output += " "
-        output += textboxValue2
-        output += " "
-        output += textboxValue3
-        output += " "
-        output += textboxValue4
-        output += " "
-        output += textboxValue5
 
         self.outputt = search.search(self.dictt, file_to_write)
-        #search.right_entry = outputt
-        self.label.setText(str(self.outputt))
+        self.label10.setText(str(self.outputt))
 
-        self.label8.setText(str(len(self.outputt)))
-        #self.label.setText(output)
-        #QMessageBox.question(self, 'Message - pythonspot.com', "You typed: " + textboxValue, QMessageBox.Ok, QMessageBox.Ok)
-        #self.textbox.setText("")
+        self.label8.setText("# of tags:"+str(len(self.outputt)))
 
     def on_correct_info(self):
         search.right_entries.append(self.outputt)
         print("right entries ", search.right_entries)
 
-    def on_download_called(self):
-       search.download('aoko')
 
     def on_openfile(self):
         self.file = QFileDialog.getOpenFileName(self," Open File", "", "All Files (*);;Python Files (*.py)")
         outputfile = self.file[0].split("/")
         print(self.file)
         print(outputfile[len(outputfile) - 1])
-        #reader = PDFReader(outputfile[len(outputfile) - 1],file_to_write)
         reader = PDFReader(self.file[0], file_to_write)
         reader.open_pdf()
-        #processing.open_pdf(fd = outputfile[len(outputfile) - 1])
+        
 #initialize
 app = QApplication(sys.argv)
 UIWindow = UI()
