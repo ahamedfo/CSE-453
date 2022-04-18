@@ -129,7 +129,7 @@ class UI(QMainWindow):
         self.show()
 
     def on_download(self):
-        search.download(self.file[0])
+        search.download('condensed ' + file_to_write)
 
     def on_cancel(self):
         self.textbox1.setText("")
