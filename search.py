@@ -39,3 +39,4 @@ def download(path):
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(right_entries)
+
