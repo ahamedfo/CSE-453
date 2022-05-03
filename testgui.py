@@ -222,8 +222,23 @@ class UI(QMainWindow):
         print(self.dictt)
 
         self.outputt = search.search(self.dictt, file_to_write)
-        self.label10.setText(str(self.outputt))
-
+        realoutput = ""
+        for tag in self.outputt:
+            realoutput += str(tag[3])
+            realoutput += "\n\n"
+            realoutput += str(tag[6])
+            realoutput += "\n\n"
+            realoutput += str(tag[7])
+            realoutput += "\n\n"
+            realoutput += str(tag[8])
+            realoutput += "\n\n"
+            realoutput += str(tag[9])
+            realoutput += "\n\n"
+            realoutput += str(tag[10])
+            realoutput += "\n"
+            realoutput += "**NEXT TAG**\n\n"
+        #self.label10.setText(str(self.outputt[0]))
+        self.label10.setText(str(realoutput))
         self.label8.setText("# of tags:"+str(len(self.outputt)))
 
     def on_correct_info(self):
