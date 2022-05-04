@@ -224,17 +224,26 @@ class UI(QMainWindow):
         self.outputt = search.search(self.dictt, file_to_write)
         realoutput = ""
         for tag in self.outputt:
+            realoutput += "Petname: "
             realoutput += str(tag[3])
             realoutput += "\n\n"
+            realoutput += "Line 1: "
             realoutput += str(tag[6])
             realoutput += "\n\n"
+            realoutput += "Line 2: "
             realoutput += str(tag[7])
             realoutput += "\n\n"
+            realoutput += "Line 3: "
             realoutput += str(tag[8])
             realoutput += "\n\n"
+            realoutput += "Line 4: "
             realoutput += str(tag[9])
             realoutput += "\n\n"
+            realoutput += "Line 5: "
             realoutput += str(tag[10])
+            realoutput += "\n\n"
+            realoutput += "SKU: "
+            realoutput += str(tag[4])
             realoutput += "\n"
             realoutput += "**NEXT TAG**\n\n"
         #self.label10.setText(str(self.outputt[0]))
